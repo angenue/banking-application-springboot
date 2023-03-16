@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Register New User Form</title>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Reference Bootstrap files -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/35d809f441.js" crossorigin="anonymous"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .error {
+            color: red
+        }
+
+        .h-custom {
+            height: calc(100% - 73px);
+        }
+
+        @media (max-width: 450px) {
+            .h-custom {
+                height: 100%;
+            }
+        }
+
+
+
+        .input-icon{
+            position: absolute;
+            left: 9px;
+            top: calc(50% - 0.5em); /* Keep icon in center of input, regardless of the input height */
+        }
+        input{
+            padding-left: 15px;
+        }
+        .input-wrapper{
+            position: relative;
+        }
+
+        .form-control label, .form-control{
+            left: .2rem;
+            padding-left: 1.9rem;
+        }
+    </style>
+
+</head>
+
+<body>
+<section class="vh-100">
+
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img alt="Sample image"
+                     class="img-fluid" src="https://i.postimg.cc/HsPk4gLf/web-development.png">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
+                <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+
+                    <!-- Registration Form -->
+                    <form class="form-horizontal"
+                          method="POST" th:action="@{/register/processRegistration}"
+                          th:object="${crmPerson}">
+
+                        <!-- Place for messages: error, alert etc ... -->
+                        <div class="form-group">
+                            <div class="col-xs-15">
+                                <div>
+
+                                    <!-- Check for registration error -->
+                                    <div class="alert alert-danger col-xs-offset-1 col-xs-10"
+                                         th:if="${registrationError}">
+                                        <span th:text="${registrationError}"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="lead fw-normal mb-4 me-3">Sign Up</p>
+
+                        <!-- User name -->
+                        <div class="input-wrapper form-outline mb-4">
+                            <input class="form-control" placeholder="username (*)" th:field="*{username}"
+                                   type="text" id="username"/>
+                            <label for="username" class="fa fa-user input-icon"></label>
+                        </div>
+
+                        <div th:if="${#fields.hasErrors('username')}"
+                             style="margin-bottom: 25px" class="text-danger">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('username')}" th:text="'User name ' + ${err}" />
+                            </ul>
+                        </div>
+
+
+                        <!-- Password -->
+                        <div style="margin-bottom: 25px" class="input-wrapper form-outline mb-4">
+                            <input class="form-control" placeholder="password (*)" th:errorclass="fieldError"
+                                   th:field="*{password}" type="password" id="password"/>
+                            <label for="password" class="fa fa-lock input-icon"></label>
+                        </div>
+                        <div class="text-danger"
+                             style="margin-bottom: 25px" th:if="${#fields.hasErrors('password')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('password')}" th:text="'Password ' + ${err}"/>
+                            </ul>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div style="margin-bottom: 25px" class="input-wrapper form-outline mb-4">
+                            <input class="form-control" placeholder="confirm password (*)" th:errorclass="fieldError"
+                                   th:field="*{matchingPassword}" type="password" id="password2"/>
+                            <label for="password2" class="fa fa-lock input-icon"></label>
+                        </div>
+                        <div class="text-danger"
+                             style="margin-bottom: 25px" th:if="${#fields.hasErrors('matchingPassword')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('matchingPassword')}"
+                                    th:text="'Password ' + ${err}"/>
+                            </ul>
+                        </div>
+
+
+                        <!-- First name -->
+                        <div class="input-wrapper form-outline mb-4">
+                            <input class="form-control" placeholder="first name (*)" th:errorclass="fieldError"
+                                   th:field="*{firstName}" type="text" id="firstname"/>
+                            <label for="firstname" class="fa fa-user input-icon"></label>
+                        </div>
+                        <div class="text-danger"
+                             style="margin-bottom: 25px" th:if="${#fields.hasErrors('firstName')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('firstName')}"
+                                    th:text="'First name ' + ${err}"/>
+                            </ul>
+                        </div>
+
+                        <!-- Last name -->
+                        <div class="input-wrapper form-outline mb-4">
+                            <input class="form-control" id="lastname" placeholder="last name (*)" th:errorclass="fieldError"
+                                   th:field="*{lastName}" type="text"/>
+                            <label for="lastname" class="fa fa-user input-icon"></label>
+                        </div>
+                        <div class="text-danger"
+                             style="margin-bottom: 25px" th:if="${#fields.hasErrors('lastName')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('lastName')}" th:text="'Last name ' + ${err}"/>
+                            </ul>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="input-wrapper form-outline mb-4">
+                            <input class="form-control" id="email" placeholder="email (*)" th:errorclass="fieldError"
+                                   th:field="*{emailAddress}" type="email"/>
+                            <label for="email" class="fa fa-envelope input-icon"></label>
+                        </div>
+                        <div class="text-danger"
+                             style="margin-bottom: 25px" th:if="${#fields.hasErrors('emailAddress')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('emailAddress')}" th:text="'Email ' + ${err}"/>
+                            </ul>
+                        </div>
+
+                        <div th:object="${account}">
+
+                            <!-- Account Type -->
+                            <div class="form-outline mb-4" placeholder="Account Type">
+                                <p class="text-black-50">Account Type (*)</p>
+                                <div th:each="type : ${T(com.springdemo.springbootdemo.entities.Type).values()}">
+
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" th:field="*{accountType}" th:value="${type}" class="custom-control-input">
+                                        <label class="custom-control-label" th:for="${#ids.prev('accountType')}" th:text="${type}">model</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-danger"
+                                 style="margin-bottom: 25px" th:if="${#fields.hasErrors('accountType')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('accountType')}"
+                                        th:text="'Account Type ' + ${err}"/>
+                                </ul>
+                            </div>
+
+
+                            <!-- Balance -->
+                            <div class="input-wrapper form-outline mb-4">
+                                <input class="form-control" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}"
+                                       placeholder="Initial Deposit (*)" th:errorclass="fieldError" th:field="*{balance}"
+                                       type="number" id="initialbalance"/>
+                                <label for="initialbalance" class="fa fa-dollar-sign input-icon"></label>
+                            </div>
+                            <div class="text-danger"
+                                 style="margin-bottom: 25px" th:if="${#fields.hasErrors('balance')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('balance')}"
+                                        th:text="'Initial Deposit ' + ${err}"/>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- Register Button -->
+                        <button class="btn btn-primary" type="submit">Create Account</button>
+                        <a th:href="@{/login}"
+                           class="text-primary">Login
+                        </a>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div
+            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+        <!-- Copyright -->
+        <div class="text-white mb-3 mb-md-0">
+            Copyright © 2023. All rights reserved.
+        </div>
+        <!-- Copyright -->
+
+        <a class="link-light" href="https://www.linkedin.com/in/angelicanuesi/">LinkedIn</a>
+        <a class="link-light" href="https://github.com/angenue">GitHub</a>
+
+
+    </div>
+
+</section>
+
+</body>
+</html>

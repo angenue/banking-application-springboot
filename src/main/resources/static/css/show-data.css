@@ -1,0 +1,59 @@
+body{margin-top:20px;
+    background:#eee;
+}
+
+.card {
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    cursor: pointer;
+    margin-bottom: 50px;
+
+}
+
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+
+a {
+    text-decoration:none;
+}
+
+.input-icon{
+    position: absolute;
+    left: 9px;
+    top: calc(50% - 0.5em); /* Keep icon in center of input, regardless of the input height */
+}
+
+.input-wrapper{
+    position: relative;
+}
+
+.form-icon label, .form-icon{
+    left: .2rem;
+    padding-left: 1.9rem;
+}
+
+.submit-button {
+    background: #aab0b7;
+    color: #000000;
+    border: 0;
+    border-radius: 5px;
+    transition: background 600ms;
+    margin-top: 30px;
+}
+
+.change-margin {
+    margin-top: 10px;
+}
+/* to make deposit and withdraw column equal to add new account */
+.button-margin {
+    margin-bottom: 9px;
+}
+
+.delete {
+    margin-bottom: 50px;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+
+  <!-- Bootstrap CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/35d809f441.js" crossorigin="anonymous"></script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body{margin-top:20px;
+      background:#eee;
+    }
+
+    .card {
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+      transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+
+    }
+
+      span.DEPOSIT {
+       background: #dce6f4;
+        border: 5px solid #dce6f4;
+        padding-right: 1em;
+        padding-left: 1em;
+        border-radius: 20px;
+      }
+
+      span.WITHDRAW {
+        background: #f4e297;
+        border: 5px solid #f4e297;
+        padding-right: 1em;
+        padding-left: 1em;
+        border-radius: 20px;
+      }
+
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h3>Account Directory</h3>
+<hr>
+
+  <a th:href="@{/user/account}" aria-pressed="true">Go Back</a>
+
+    <div class="card mb-3 card-body">
+      <div class="row align-items-center">
+        <div class="col" >
+          <div class="overflow-hidden ">
+
+
+            <table class="table table-borderless align-middle mb-0 bg-white">
+              <thead class="table-secondary">
+              <tr>
+                <th scope="col">Account Number</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Balance</th>
+              </tr>
+              </thead>
+
+              <tbody class="table">
+              <tr>
+                <td th:text="${account.accountNumber}"></td>
+                <td th:text="${account.accountType}"></td>
+                <td th:text="${#numbers.formatCurrency(account.balance)}"></td>
+
+              </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card mb-3 card-body">
+      <div class="row align-items-center">
+        <div class="col" >
+          <div class="overflow-hidden ">
+
+
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Transaction Type</th>
+                <th scope="col">Amount</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr th:each="transactions : ${transaction}">
+                <td th:text="${transactions.transactionDate}"></td>
+
+
+
+                <td >
+
+                  <span th:classappend = "${transactions.transactionType}" th:text="${transactions.transactionType}"></span>
+                </td>
+
+
+                <td th:text="${#numbers.formatCurrency(transactions.amount)}"></td>
+
+              </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
